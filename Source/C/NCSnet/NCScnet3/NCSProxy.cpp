@@ -31,6 +31,7 @@
 #elif defined(POSIX)
 #	ifdef MACOSX
 #		include <ctype.h>
+#		include <unistd.h>
 #	else
 #		include <wctype.h>
 #	endif

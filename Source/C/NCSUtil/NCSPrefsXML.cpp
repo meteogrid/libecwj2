@@ -32,7 +32,11 @@ void CNCSPrefsXML::Init()
 	} else {
 		char *pHomeDir = getenv("HOME");
 		if( pHomeDir ) {
+#ifdef NCS_BUILD_UNICODE
+			sUserPrefsFile.Format( NCS_T("%s%ls"), pHomeDir, NCS_T("/.erm/ncsuserprefs.xml") );
+#else
 			sUserPrefsFile.Format( NCS_T("%s%s"), pHomeDir, NCS_T("/.erm/ncsuserprefs.xml") );
+#endif
 		} else {
 			sUserPrefsFile = NCS_T("/etc/erm/ncsuserprefs.xml");
 		}

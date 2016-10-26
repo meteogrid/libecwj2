@@ -58,7 +58,11 @@ extern "C" {
 #endif
 
 #if (defined(MACINTOSH)||defined(SOLARIS)||defined(IRIX)||defined(PALM)||defined(HPUX)||defined(MACOSX))&&(!defined(X86))
+#ifdef __LITTLE_ENDIAN__
+#define NCSBO_LSBFIRST
+#else
 #define NCSBO_MSBFIRST
+#endif
 #else	// WIN32, LINUX (i386)
 #define NCSBO_LSBFIRST
 #endif
@@ -125,6 +129,10 @@ extern "C" {
 //#include <values.h>
 #include <limits.h>
 #include <ctype.h>
+
+#ifdef __LP64__
+#define NCS_64BIT
+#endif
 
 #define NCS_FQNAN	0x0002
 #define NCS_NAN		NAN
@@ -425,14 +433,6 @@ static NCS_INLINE int wcsicmp(const wchar_t *s1, const wchar_t *s2)
 		s2++;
 	}
 	return(towlower(*s1) - towlower(*s2));
-}
-
-static NCS_INLINE wchar_t *wcsdup(const wchar_t *s1)
-{
-	size_t len = (wcslen(s1) + 1) * sizeof(wchar_t);
-	wchar_t *s2 = (wchar_t*)malloc(len);
-	memcpy(s2, s1, len);
-	return(s2);
 }
 
 #endif /* SOLARIS || MACOSX */
